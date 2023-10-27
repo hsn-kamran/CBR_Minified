@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15.3
+    container_name: cbr_pgdb
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - cbr_pgdata:/var/lib/postgresql/data
+
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: cbr_pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: hsn.kamran@yandex.ru
+      PGADMIN_DEFAULT_PASSWORD: admin
+    volumes:
+      - cbr_pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  cbr_pgdata:
+  cbr_pgadmin_data:
