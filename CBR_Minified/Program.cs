@@ -2,7 +2,6 @@
 using CBR_Minified.DbModels;
 using CBR_Minified.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -12,12 +11,10 @@ InitializeEnviroment();
 var mapper = MapperConfig.InitializeAutomapper();
 
 var options = new DbContextOptionsBuilder<CbrDbContext>()
-    .UseNpgsql(GetConnectionString())
+    .UseNpgsql(ConnectionHelper.GetConnectionString())
     .Options;
 
 await FillDatabase();
-
-
 
 
 
@@ -31,18 +28,6 @@ void InitializeEnviroment()
     // для работы с кириллицей в xml
     Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     Encoding.GetEncoding("windows-1251");
-}
-
-string GetConnectionString()
-{
-    var configuration = new ConfigurationBuilder()
-        .AddJsonFile($"appsettings.json", true, true)
-        .Build();
-
-    string cs = configuration.GetSection("ConnectionStrings:CBR_Postgres_Connection").Value
-        ?? throw new ArgumentNullException(nameof(configuration));
-
-    return cs;
 }
 
 async Task<ValCurs> GetValutesCoursesByDate(DateTime dateTime)
@@ -63,7 +48,6 @@ async Task<ValCurs> GetValutesCoursesByDate(DateTime dateTime)
 
     return valCurs;
 }
-
 
 async Task FillDatabase()
 {
