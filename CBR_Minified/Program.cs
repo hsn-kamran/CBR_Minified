@@ -2,6 +2,8 @@
 using CBR_Minified.DbModels;
 using CBR_Minified.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Data.SqlTypes;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -55,19 +57,20 @@ async Task FillDatabase()
     {
         using var context = new CbrDbContext(options);
 
-        DateTime start = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        DateTime end = start;
+        var lastCourse = context.CurrencyCourses.OrderByDescending(c => c.Date).FirstOrDefault();
 
-        // в таблице актуальные данные
-        if (await context.CurrencyCourses.AnyAsync()
-        && context.CurrencyCourses.FirstOrDefault(c => c.Date.Year == end.Year && c.Date.Month == end.Month && c.Date.Day == end.Day) is not null)
-            return;
+        DateTime start, end;
+        start = end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
 
-        // если таблица пуста, значит приложение ни разу не запускалось 
-        // и нужно заполнить бд данными как за предыдущий месяц, так и за сегодняшний день        
-        // иначе просто заполняем за сегодняшний день
-        if (!await context.CurrencyCourses.AnyAsync())
+        // таблица пуста
+        // заполняем за месяц
+        if (lastCourse is null)
             start = end - TimeSpan.FromDays(30);
+        else  // иначе только за сегодняшний день
+        {
+            DateTime lastCourseDate = lastCourse.Date;
+            start = new DateTime(lastCourseDate.Year, lastCourseDate.Month, lastCourseDate.Day + 1);
+        }
 
         var currencyCourses = new List<CurrencyCourse>();
 
