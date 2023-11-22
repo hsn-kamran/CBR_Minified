@@ -1,0 +1,41 @@
+﻿@using CBR_Minified.Domain.DbModels;
+@model IEnumerable<CurrencyCourse>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Currency Courses</h1>
+</div>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Name</th>
+                <th scope="col">NumCode</th>
+                <th scope="col">CharCode</th>
+                <th scope="col">Nominal</th>
+                <th scope="col">Value</th>
+                <th scope="col">VunitRate</th>
+                <th scope="col">Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var currency in Model)
+            {
+                <tr>
+                    <th scope="row">@currency.CurrencyId</th>
+                    <th scope="col">@currency.Name</th>
+                    <th scope="col">@currency.NumCode</th>
+                    <th scope="col">@currency.CharCode</th>
+                    <th scope="col">@currency.Nominal</th>
+                    <th scope="col">@currency.Value</th>
+                    <th scope="col">@currency.VunitRate</th>
+                    <th scope="col">@currency.Date</th>
+                </tr>           
+            }
+        </tbody>
+    </table>
+</div>
