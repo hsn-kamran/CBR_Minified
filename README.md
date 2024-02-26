@@ -9,9 +9,11 @@ docker compose up -d
 
 Также нужно установить [dotnet 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0), рантайм и SDK.
 
-Выполнить миграции БД, в директории CBR_Minified.Web 
+Обновить БД (например через Nuget Package Manager)
+В качестве Default Project выбрать CBR_Minified.Domain.
 
 ```shell
-Add-Migration InitialCreate
-Update-Database
+Update-Database -StartupProject CBR_Minified.Web
 ```
+
+Альтернативный вариант - выполнить скрипт из файла create.sql
