@@ -23,7 +23,7 @@ public class SaveToStorageService : ISaveToStorageService
             var lastCourse = _context.CurrencyCourses.OrderByDescending(c => c.Date).FirstOrDefault();
 
             DateTime start, end;
-            start = end = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            start = end = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day);
 
             // таблица пуста
             // заполняем за месяц
