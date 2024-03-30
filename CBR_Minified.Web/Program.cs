@@ -21,11 +21,7 @@ builder.Services
     .AddAutoMapper(config => config.AddMaps(Assembly.GetAssembly(typeof(CbrDbContext))));
 
 
-
 var app = builder.Build();
-
-
-
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -47,3 +43,5 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+public partial class Program { }
