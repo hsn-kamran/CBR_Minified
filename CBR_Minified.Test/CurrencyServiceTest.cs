@@ -1,9 +1,9 @@
-using CBR_Minified.Web.Services;
+п»їusing CBR_Minified.Web.Services;
 
 namespace CBR_Minified.Test
 {
     /// <summary>
-    /// Проверяем доступность и ответ эндпоинта
+    /// РџСЂРѕРІРµСЂСЏРµРј РґРѕСЃС‚СѓРїРЅРѕСЃС‚СЊ Рё РѕС‚РІРµС‚ СЌРЅРґРїРѕРёРЅС‚Р°
     /// </summary>
     public class CurrencyServiceTest
     {
